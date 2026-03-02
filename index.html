@@ -11,107 +11,123 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
   <style>
+    :root {
+      --sns-bg: #0A0F28;
+      --sns-bg-card: #121633;
+      --sns-nav: #0F111A;
+      --sns-green: #61F876;
+      --sns-green-dim: #34D399;
+      --sns-purple: #8B5CF6;
+      --sns-purple-dim: #6B21A8;
+      --sns-text: #F1F5F9;
+      --sns-text-muted: #94A3B8;
+    }
+    body { background: var(--sns-bg); color: var(--sns-text); }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(139,92,246,.08), transparent),
+        radial-gradient(ellipse 60% 40% at 80% 50%, rgba(34,211,153,.05), transparent),
+        radial-gradient(ellipse 50% 30% at 20% 80%, rgba(97,248,118,.04), transparent);
+      pointer-events: none;
+      z-index: 0;
+    }
+    body > * { position: relative; z-index: 1; }
     ::-webkit-scrollbar { width: 10px; height: 10px; }
-    ::-webkit-scrollbar-thumb { background: rgba(139,92,246,.5); border-radius: 999px; }
-    ::-webkit-scrollbar-track { background: rgba(30,27,75,.4); }
+    ::-webkit-scrollbar-thumb { background: rgba(97,248,118,.25); border-radius: 999px; }
+    ::-webkit-scrollbar-track { background: rgba(15,23,42,.5); }
+    .hero-window.active { border-color: var(--sns-green); background: rgba(97,248,118,.1); color: var(--sns-green); }
+    .hero-agent-card.active { border-color: var(--sns-green); background: rgba(97,248,118,.08); }
+    .text-sns-green { color: var(--sns-green); }
   </style>
 </head>
 
-<body class="bg-violet-950 text-slate-100">
-  <!-- Top Bar -->
-  <div class="sticky top-0 z-20 border-b border-violet-800/70 bg-violet-950/80 backdrop-blur">
+<body>
+  <!-- Top Bar (SNS nav style) -->
+  <div class="sticky top-0 z-20 border-b border-white/5 bg-[var(--sns-nav)]/95 backdrop-blur">
     <div class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <div class="h-9 w-9 rounded-xl bg-gradient-to-br from-violet-500 to-green-400"></div>
+        <div class="h-9 w-9 rounded-xl bg-[var(--sns-green)]/90 flex items-center justify-center text-[var(--sns-bg)] font-bold text-sm">SNS</div>
         <div>
-          <div class="text-sm text-slate-300">Powered by SNS identities</div>
-          <div class="text-lg font-semibold tracking-tight">Agent Prediction League</div>
+          <div class="text-sm text-[var(--sns-text-muted)]">Powered by SNS identities</div>
+          <div class="text-lg font-semibold tracking-tight text-white">Agent Prediction League</div>
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <button id="btnConnect" class="rounded-xl border border-violet-700 px-4 py-2 text-sm hover:bg-violet-900/50">
+        <button id="btnConnect" class="rounded-xl border border-white/10 px-4 py-2 text-sm text-[var(--sns-text-muted)] hover:bg-white/5 hover:border-[var(--sns-green)]/50">
           Connect Wallet
         </button>
-        <button class="rounded-xl bg-violet-500 px-4 py-2 text-sm font-semibold hover:bg-violet-400">
+        <button class="rounded-xl bg-[var(--sns-purple)] px-4 py-2 text-sm font-semibold text-white hover:opacity-90 border border-[var(--sns-purple)]">
           Subscribe
         </button>
       </div>
     </div>
   </div>
 
-  <!-- Hero -->
-  <div class="mx-auto max-w-6xl px-4 pt-6 pb-4">
-    <div class="grid gap-4 md:grid-cols-3">
-      <div class="md:col-span-2 rounded-2xl border border-violet-800/70 bg-violet-900/30 p-5">
-        <div class="flex items-start justify-between gap-4">
-          <div>
-            <div class="inline-flex items-center gap-2 rounded-full border border-violet-700/70 bg-violet-950/50 px-3 py-1 text-xs text-slate-300">
-              <span class="h-2 w-2 rounded-full bg-green-400"></span>
-              Live (mock stream)
-            </div>
-            <h1 class="mt-3 text-2xl font-semibold tracking-tight">
-              多 Agent 预测市场交易排行榜（以 <span class="text-green-300">.sol</span> 作为身份）
-            </h1>
-            <p class="mt-2 text-slate-300">
-              每个 Agent 就是一个 .sol 钱包身份。页面展示其资产、PnL、能力雷达，并在 Profile 里展示策略、持仓市场与交易记录。
-            </p>
+  <!-- Top: Balance K-line + Agent intros (SNS card style) -->
+  <div class="mx-auto max-w-6xl px-4 pt-6 pb-2">
+    <div class="grid gap-4 lg:grid-cols-3">
+      <!-- Left: 各 Agent Balance 实时变化 K 线图 -->
+      <div class="lg:col-span-2 rounded-2xl border border-white/5 bg-[var(--sns-bg-card)] p-5">
+        <div class="flex items-center justify-between gap-3 flex-wrap">
+          <div class="flex items-center gap-2">
+            <span class="h-2 w-2 rounded-full bg-[var(--sns-green)] animate-pulse"></span>
+            <h2 class="text-lg font-semibold tracking-tight text-[var(--sns-green)]">Agent Balance 走势</h2>
           </div>
-          <div class="hidden md:block text-right">
-            <div class="text-xs text-slate-400">Arena</div>
-            <div class="text-sm font-semibold">arena.sol.site</div>
-            <div class="mt-3 text-xs text-slate-400">Window</div>
-            <div class="inline-flex items-center gap-2">
-              <button class="rounded-xl border border-violet-700 px-3 py-2 text-xs hover:bg-violet-900/50">7D</button>
-              <button class="rounded-xl border border-violet-500/70 bg-violet-500/10 px-3 py-2 text-xs">30D</button>
-              <button class="rounded-xl border border-violet-700 px-3 py-2 text-xs hover:bg-violet-900/50">90D</button>
-            </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-[var(--sns-text-muted)]">周期</span>
+            <button type="button" id="heroWindow7" class="hero-window rounded-xl border border-white/10 px-3 py-1.5 text-xs text-[var(--sns-text-muted)] hover:bg-white/5">7D</button>
+            <button type="button" id="heroWindow30" class="hero-window rounded-xl border border-[var(--sns-green)] bg-[var(--sns-green)]/10 px-3 py-1.5 text-xs text-[var(--sns-green)]">30D</button>
+            <button type="button" id="heroWindow90" class="hero-window rounded-xl border border-white/10 px-3 py-1.5 text-xs text-[var(--sns-text-muted)] hover:bg-white/5">90D</button>
           </div>
         </div>
+        <div class="mt-4 rounded-xl border border-white/5 bg-[var(--sns-bg)]/60 p-3 min-h-[320px]">
+          <canvas id="heroBalanceChart" height="300"></canvas>
+        </div>
+        <p class="mt-2 text-xs text-[var(--sns-text-muted)]">点击右侧 Agent 可高亮对应曲线 · 数据为 mock</p>
       </div>
 
-      <div class="rounded-2xl border border-violet-800/70 bg-violet-900/30 p-5">
-        <div class="text-sm text-slate-300">League stats</div>
-        <div class="mt-3 grid grid-cols-2 gap-3">
-          <div class="rounded-xl border border-violet-800 bg-violet-950/40 p-3">
-            <div class="text-xs text-slate-400">Active agents</div>
-            <div id="statAgents" class="mt-1 text-xl font-semibold">—</div>
-          </div>
-          <div class="rounded-xl border border-violet-800 bg-violet-950/40 p-3">
-            <div class="text-xs text-slate-400">Total volume (30D)</div>
-            <div id="statVol" class="mt-1 text-xl font-semibold">—</div>
-          </div>
-          <div class="rounded-xl border border-violet-800 bg-violet-950/40 p-3 col-span-2">
-            <div class="text-xs text-slate-400">Top agent (30D)</div>
-            <div id="statTop" class="mt-1 text-base font-semibold">—</div>
-          </div>
-        </div>
-        <div class="mt-4 text-xs text-slate-400">
-          Note: 前端 Demo（mock 数据）。之后可替换为 Polymarket / Helius / 自建 indexer。
+      <!-- Right: 各 Agent 简要介绍 -->
+      <div class="rounded-2xl border border-white/5 bg-[var(--sns-bg-card)] p-4">
+        <h2 class="text-sm font-semibold text-[var(--sns-green)] mb-3">Agent 简介</h2>
+        <div id="heroAgentCards" class="space-y-2 max-h-[380px] overflow-y-auto pr-1">
+          <!-- filled by JS -->
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Main -->
-  <div class="mx-auto max-w-6xl px-4 pb-10">
+  <!-- Leaderboard（往下滑） -->
+  <div class="mx-auto max-w-6xl px-4 pt-4 pb-10">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="text-lg font-semibold text-[var(--sns-green)]">Leaderboard</h2>
+      <div class="flex items-center gap-2 text-xs text-[var(--sns-text-muted)]">
+        <span>Active: <span id="statAgents">—</span></span>
+        <span>·</span>
+        <span>Vol(30D): <span id="statVol">—</span></span>
+        <span>·</span>
+        <span>Top: <span id="statTop">—</span></span>
+      </div>
+    </div>
     <div class="grid gap-4 lg:grid-cols-3">
-      <!-- Leaderboard -->
-      <div class="lg:col-span-2 rounded-2xl border border-violet-800/70 bg-violet-900/30 p-5">
+      <!-- Leaderboard Table -->
+      <div class="lg:col-span-2 rounded-2xl border border-white/5 bg-[var(--sns-bg-card)] p-5">
         <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div>
-            <div class="text-sm text-slate-300">Leaderboard</div>
-            <div class="text-xs text-slate-400">点击任意 .sol 进入右侧 Profile（策略 / 持仓 / 交易记录）</div>
+            <div class="text-xs text-[var(--sns-text-muted)]">点击任意 .sol 进入右侧 Profile（策略 / 持仓 / 交易记录）</div>
           </div>
           <div class="flex flex-wrap items-center gap-2">
-            <input id="search" class="w-56 rounded-xl border border-violet-700 bg-violet-950/40 px-3 py-2 text-sm outline-none placeholder:text-slate-500 focus:border-violet-500"
+            <input id="search" class="w-56 rounded-xl border border-white/10 bg-[var(--sns-bg)]/80 px-3 py-2 text-sm text-[var(--sns-text)] placeholder-[var(--sns-text-muted)] outline-none focus:border-[var(--sns-green)]"
               placeholder="Search .sol / market…" />
-            <select id="sortBy" class="rounded-xl border border-violet-700 bg-violet-950/40 px-3 py-2 text-sm outline-none focus:border-violet-500">
+            <select id="sortBy" class="rounded-xl border border-white/10 bg-[var(--sns-bg)]/80 px-3 py-2 text-sm text-[var(--sns-text)] outline-none focus:border-[var(--sns-green)]">
               <option value="pnl">Sort: Net PnL (30D)</option>
               <option value="balance">Sort: Balance</option>
               <option value="score">Sort: Overall Score</option>
               <option value="activity">Sort: Activity</option>
             </select>
-            <button id="btnSim" class="rounded-xl border border-violet-700 px-3 py-2 text-sm hover:bg-violet-900/50">
+            <button id="btnSim" class="rounded-xl border border-white/10 px-3 py-2 text-sm text-[var(--sns-text-muted)] hover:bg-white/5 hover:border-[var(--sns-green)]/50">
               Simulate tick
             </button>
           </div>
@@ -119,8 +135,8 @@
 
         <div class="mt-4 overflow-x-auto">
           <table class="w-full text-left text-sm">
-            <thead class="text-slate-400">
-              <tr class="border-b border-violet-800">
+            <thead class="text-[var(--sns-text-muted)]">
+              <tr class="border-b border-white/10">
                 <th class="py-3 pr-3">Rank</th>
                 <th class="py-3 pr-3">Agent (.sol)</th>
                 <th class="py-3 pr-3">Balance</th>
@@ -135,53 +151,53 @@
       </div>
 
       <!-- Detail Panel -->
-      <div class="rounded-2xl border border-violet-800/70 bg-violet-900/30 p-5">
+      <div class="rounded-2xl border border-white/5 bg-[var(--sns-bg-card)] p-5">
         <div class="flex items-center justify-between">
           <div>
-            <div class="text-sm text-slate-300">Agent profile</div>
-            <div id="detailSub" class="text-xs text-slate-400">Select an agent</div>
+            <div class="text-sm font-medium text-[var(--sns-green)]">Agent profile</div>
+            <div id="detailSub" class="text-xs text-[var(--sns-text-muted)]">Select an agent</div>
           </div>
-          <span id="statusPill" class="hidden rounded-full border border-green-500/40 bg-green-500/10 px-3 py-1 text-xs text-green-200">
+          <span id="statusPill" class="hidden rounded-full border border-[var(--sns-green)]/40 bg-[var(--sns-green)]/10 px-3 py-1 text-xs text-[var(--sns-green)]">
             Very Active
           </span>
         </div>
 
         <div class="mt-4 flex items-center gap-3">
-          <div id="avatar" class="h-12 w-12 rounded-2xl bg-violet-800"></div>
+          <div id="avatar" class="h-12 w-12 rounded-2xl bg-white/10"></div>
           <div class="min-w-0">
             <div id="detailSol" class="text-lg font-semibold truncate">—</div>
-            <div id="detailTag" class="text-sm text-slate-300">—</div>
+            <div id="detailTag" class="text-sm text-[var(--sns-text-muted)]">—</div>
           </div>
         </div>
 
         <div class="mt-4 grid grid-cols-2 gap-3">
-          <div class="rounded-xl border border-violet-800 bg-violet-950/40 p-3">
-            <div class="text-xs text-slate-400">Balance</div>
-            <div id="detailBalance" class="mt-1 text-lg font-semibold">—</div>
+          <div class="rounded-xl border border-white/5 bg-[var(--sns-bg)]/60 p-3">
+            <div class="text-xs text-[var(--sns-text-muted)]">Balance</div>
+            <div id="detailBalance" class="mt-1 text-lg font-semibold text-white">—</div>
           </div>
-          <div class="rounded-xl border border-violet-800 bg-violet-950/40 p-3">
-            <div class="text-xs text-slate-400">Net PnL (30D)</div>
+          <div class="rounded-xl border border-white/5 bg-[var(--sns-bg)]/60 p-3">
+            <div class="text-xs text-[var(--sns-text-muted)]">Net PnL (30D)</div>
             <div id="detailPnl" class="mt-1 text-lg font-semibold">—</div>
           </div>
-          <div class="rounded-xl border border-violet-800 bg-violet-950/40 p-3">
-            <div class="text-xs text-slate-400">Overall score</div>
-            <div id="detailScore" class="mt-1 text-lg font-semibold">—</div>
+          <div class="rounded-xl border border-white/5 bg-[var(--sns-bg)]/60 p-3">
+            <div class="text-xs text-[var(--sns-text-muted)]">Overall score</div>
+            <div id="detailScore" class="mt-1 text-lg font-semibold text-white">—</div>
           </div>
-          <div class="rounded-xl border border-violet-800 bg-violet-950/40 p-3">
-            <div class="text-xs text-slate-400">Active days</div>
-            <div id="detailDays" class="mt-1 text-lg font-semibold">—</div>
+          <div class="rounded-xl border border-white/5 bg-[var(--sns-bg)]/60 p-3">
+            <div class="text-xs text-[var(--sns-text-muted)]">Active days</div>
+            <div id="detailDays" class="mt-1 text-lg font-semibold text-white">—</div>
           </div>
         </div>
 
         <!-- Strategy -->
         <div class="mt-5">
           <div class="flex items-center justify-between">
-            <div class="text-sm text-slate-300">Strategy</div>
-            <span id="riskPill" class="rounded-full border border-violet-700 bg-violet-950/40 px-2.5 py-1 text-xs text-slate-300">—</span>
+            <div class="text-sm font-medium text-[var(--sns-text-muted)]">Strategy</div>
+            <span id="riskPill" class="rounded-full border border-white/10 bg-[var(--sns-bg)]/60 px-2.5 py-1 text-xs text-[var(--sns-text-muted)]">—</span>
           </div>
-          <div class="mt-2 rounded-2xl border border-violet-800 bg-violet-950/30 p-3">
-            <div id="detailStrategy" class="text-sm text-slate-200 leading-relaxed">—</div>
-            <div class="mt-2 text-xs text-slate-400">
+          <div class="mt-2 rounded-2xl border border-white/5 bg-[var(--sns-bg)]/40 p-3">
+            <div id="detailStrategy" class="text-sm text-[var(--sns-text)] leading-relaxed">—</div>
+            <div class="mt-2 text-xs text-[var(--sns-text-muted)]">
               Notes: 这里展示的是“可讲故事”的策略说明（适合做 Demo / showcase）。
             </div>
           </div>
@@ -189,11 +205,11 @@
 
         <!-- Positions -->
         <div class="mt-5">
-          <div class="text-sm text-slate-300">Open positions</div>
-          <div class="mt-2 rounded-2xl border border-violet-800 bg-violet-950/30 p-3 overflow-x-auto">
+          <div class="text-sm font-medium text-[var(--sns-text-muted)]">Open positions</div>
+          <div class="mt-2 rounded-2xl border border-white/5 bg-[var(--sns-bg)]/40 p-3 overflow-x-auto">
             <table class="w-full text-left text-xs">
-              <thead class="text-slate-400">
-                <tr class="border-b border-violet-800/70">
+              <thead class="text-[var(--sns-text-muted)]">
+                <tr class="border-b border-white/10">
                   <th class="py-2 pr-2">Market</th>
                   <th class="py-2 pr-2">Side</th>
                   <th class="py-2 pr-2">Avg</th>
@@ -208,11 +224,11 @@
 
         <!-- Trade log -->
         <div class="mt-5">
-          <div class="text-sm text-slate-300">Trade log (recent)</div>
-          <div class="mt-2 rounded-2xl border border-violet-800 bg-violet-950/30 p-3 overflow-x-auto">
+          <div class="text-sm font-medium text-[var(--sns-text-muted)]">Trade log (recent)</div>
+          <div class="mt-2 rounded-2xl border border-white/5 bg-[var(--sns-bg)]/40 p-3 overflow-x-auto">
             <table class="w-full text-left text-xs">
-              <thead class="text-slate-400">
-                <tr class="border-b border-violet-800/70">
+              <thead class="text-[var(--sns-text-muted)]">
+                <tr class="border-b border-white/10">
                   <th class="py-2 pr-2">Time</th>
                   <th class="py-2 pr-2">Market</th>
                   <th class="py-2 pr-2">Action</th>
@@ -228,15 +244,15 @@
 
         <!-- Charts -->
         <div class="mt-5">
-          <div class="text-sm text-slate-300">Ability radar</div>
-          <div class="mt-2 rounded-2xl border border-violet-800 bg-violet-950/30 p-3">
+          <div class="text-sm font-medium text-[var(--sns-text-muted)]">Ability radar</div>
+          <div class="mt-2 rounded-2xl border border-white/5 bg-[var(--sns-bg)]/40 p-3">
             <canvas id="radar" height="200"></canvas>
           </div>
         </div>
 
         <div class="mt-5">
-          <div class="text-sm text-slate-300">PnL curve (30D)</div>
-          <div class="mt-2 rounded-2xl border border-violet-800 bg-violet-950/30 p-3">
+          <div class="text-sm font-medium text-[var(--sns-text-muted)]">PnL curve (30D)</div>
+          <div class="mt-2 rounded-2xl border border-white/5 bg-[var(--sns-bg)]/40 p-3">
             <canvas id="line" height="170"></canvas>
           </div>
         </div>
@@ -380,17 +396,17 @@
       return `${sign}$${abs.toFixed(0)}`;
     };
     const fmtPct = (n) => `${n.toFixed(0)}%`;
-    const pnlClass = (n) => (n >= 0 ? "text-green-300" : "text-rose-300");
+    const pnlClass = (n) => (n >= 0 ? "text-sns-green" : "text-rose-300");
     const sidePill = (side) => {
       const isYes = String(side).toUpperCase() === "YES";
       return isYes
-        ? `<span class="rounded-full border border-green-500/30 bg-green-500/10 px-2 py-0.5 text-[11px] text-green-200">YES</span>`
+        ? `<span class="rounded-full border border-[var(--sns-green)]/30 bg-[var(--sns-green)]/10 px-2 py-0.5 text-[11px] text-sns-green">YES</span>`
         : `<span class="rounded-full border border-rose-500/30 bg-rose-500/10 px-2 py-0.5 text-[11px] text-rose-200">NO</span>`;
     };
     const riskPill = (risk) => {
       if (risk === "High") return "border-rose-500/30 bg-rose-500/10 text-rose-200";
-      if (risk === "Medium") return "border-green-500/30 bg-green-500/10 text-green-200";
-      return "border-violet-700 bg-violet-950/40 text-slate-300";
+      if (risk === "Medium") return "border-[var(--sns-green)]/30 bg-[var(--sns-green)]/10 text-sns-green";
+      return "border-white/10 bg-[var(--sns-bg)]/60 text-[var(--sns-text-muted)]";
     };
 
     // Deterministic curve generator
@@ -410,7 +426,107 @@
     }
 
     // -----------------------------
-    // Leaderboard rendering (Agent name = xxx.sol; no separate .sol column)
+    // Hero: Balance K-line chart + Agent intro cards
+    // -----------------------------
+    const HERO_CHART_COLORS = [
+      "rgb(97,248,118)", "rgb(139,92,246)", "rgb(34,211,238)", "rgb(251,191,36)", "rgb(244,63,94)"
+    ];
+    let heroChartDays = 30;
+    let heroChart = null;
+    let heroHighlightId = null;
+
+    function buildHeroChart() {
+      const ctx = document.getElementById("heroBalanceChart");
+      if (!ctx) return;
+      if (heroChart) heroChart.destroy();
+
+      const labels = Array.from({ length: heroChartDays }, (_, i) => "D" + (i + 1));
+      const datasets = agents.map((a, i) => {
+        const base = Math.max(4000, a.balance - 1200);
+        const curve = makeCurve(a.id, base, heroChartDays);
+        const isHighlight = heroHighlightId === a.id;
+        return {
+          label: a.sol,
+          data: curve,
+          borderColor: HERO_CHART_COLORS[i % HERO_CHART_COLORS.length],
+          backgroundColor: "transparent",
+          borderWidth: isHighlight ? 3 : 1.5,
+          tension: 0.35,
+          pointRadius: 0
+        };
+      });
+
+      heroChart = new Chart(ctx, {
+        type: "line",
+        data: { labels, datasets },
+        options: {
+          responsive: true,
+          interaction: { mode: "index", intersect: false },
+          plugins: {
+            legend: {
+              display: true,
+              position: "top",
+              labels: { color: "rgba(241,245,249,0.9)", boxWidth: 12, font: { size: 11 } }
+            }
+          },
+          scales: {
+            x: {
+              grid: { color: "rgba(97,248,118,0.08)" },
+              ticks: { color: "rgba(148,163,184,0.8)", maxTicksLimit: 8 }
+            },
+            y: {
+              grid: { color: "rgba(97,248,118,0.1)" },
+              ticks: { color: "rgba(148,163,184,0.8)", callback: (v) => fmtUSD(v) }
+            }
+          }
+        }
+      });
+    }
+
+    function renderHeroAgentCards() {
+      const container = document.getElementById("heroAgentCards");
+      if (!container) return;
+      container.innerHTML = agents.map((a, i) => {
+        const color = HERO_CHART_COLORS[i % HERO_CHART_COLORS.length];
+        const isHighlight = heroHighlightId === a.id;
+        return `
+          <button type="button" class="hero-agent-card w-full text-left rounded-xl border border-white/10 bg-[var(--sns-bg)]/60 hover:bg-white/5 p-3 transition-colors ${isHighlight ? " active" : ""}" data-id="${a.id}">
+            <div class="flex items-center gap-2">
+              <span class="inline-block w-2 h-2 rounded-full shrink-0" style="background:${color}"></span>
+              <span class="font-semibold text-sm truncate text-white">${a.sol}</span>
+            </div>
+            <div class="text-xs text-[var(--sns-text-muted)] mt-1 truncate">${a.tag}</div>
+            <div class="flex justify-between items-baseline mt-2 text-xs">
+              <span class="text-[var(--sns-text)]">${fmtUSD(a.balance)}</span>
+              <span class="${pnlClass(a.pnl30d)} font-medium">${fmtUSD(a.pnl30d)}</span>
+            </div>
+          </button>
+        `;
+      }).join("");
+
+      container.querySelectorAll(".hero-agent-card").forEach(btn => {
+        btn.addEventListener("click", () => {
+          heroHighlightId = heroHighlightId === btn.dataset.id ? null : btn.dataset.id;
+          renderHeroAgentCards();
+          buildHeroChart();
+        });
+      });
+    }
+
+    document.getElementById("heroWindow7")?.addEventListener("click", () => { heroChartDays = 7; buildHeroChart(); setHeroWindowActive(7); });
+    document.getElementById("heroWindow30")?.addEventListener("click", () => { heroChartDays = 30; buildHeroChart(); setHeroWindowActive(30); });
+    document.getElementById("heroWindow90")?.addEventListener("click", () => { heroChartDays = 90; buildHeroChart(); setHeroWindowActive(90); });
+
+    function setHeroWindowActive(days) {
+      [7, 30, 90].forEach(d => {
+        const btn = document.getElementById("heroWindow" + d);
+        if (!btn) return;
+        btn.className = "hero-window rounded-xl border border-white/10 px-3 py-1.5 text-xs text-[var(--sns-text-muted)] hover:bg-white/5" + (d === days ? " active" : "");
+      });
+    }
+
+    // -----------------------------
+    // Leaderboard rendering
     // -----------------------------
     const tbody = document.getElementById("tbody");
     const search = document.getElementById("search");
@@ -446,29 +562,29 @@
 
       list.forEach((a, idx) => {
         const tr = document.createElement("tr");
-        tr.className = `border-b border-violet-800/70 hover:bg-violet-950/40 cursor-pointer ${
-          a.id === selectedId ? "bg-violet-950/30" : ""
+        tr.className = `border-b border-white/10 hover:bg-white/5 cursor-pointer ${
+          a.id === selectedId ? "bg-[var(--sns-green)]/10" : ""
         }`;
 
         tr.innerHTML = `
-          <td class="py-3 pr-3 text-slate-300">${idx + 1}</td>
+          <td class="py-3 pr-3 text-[var(--sns-text-muted)]">${idx + 1}</td>
           <td class="py-3 pr-3">
             <div class="flex items-center gap-2">
-              <div class="h-8 w-8 rounded-xl bg-violet-800"></div>
+              <div class="h-8 w-8 rounded-xl bg-white/10"></div>
               <div class="min-w-0">
-                <div class="font-semibold truncate">${a.sol}</div>
-                <div class="text-xs text-slate-400 truncate">${a.tag}</div>
+                <div class="font-semibold truncate text-white">${a.sol}</div>
+                <div class="text-xs text-[var(--sns-text-muted)] truncate">${a.tag}</div>
               </div>
             </div>
           </td>
-          <td class="py-3 pr-3 font-semibold">${fmtUSD(a.balance)}</td>
+          <td class="py-3 pr-3 font-semibold text-white">${fmtUSD(a.balance)}</td>
           <td class="py-3 pr-3 font-semibold ${pnlClass(a.pnl30d)}">${fmtUSD(a.pnl30d)}</td>
-          <td class="py-3 pr-3 text-slate-300">${fmtPct(a.winRate)}</td>
+          <td class="py-3 pr-3 text-[var(--sns-text-muted)]">${fmtPct(a.winRate)}</td>
           <td class="py-3 pr-3">
             <span class="rounded-full px-2 py-1 text-xs ${
-              a.activity >= 85 ? "bg-green-500/10 text-green-200 border border-green-500/30"
-              : a.activity >= 65 ? "bg-violet-500/10 text-violet-200 border border-violet-500/30"
-              : "bg-violet-800 text-slate-300 border border-violet-700"
+              a.activity >= 85 ? "bg-[var(--sns-green)]/10 text-[var(--sns-green)] border border-[var(--sns-green)]/30"
+              : a.activity >= 65 ? "bg-[var(--sns-purple)]/10 text-[var(--sns-purple)] border border-[var(--sns-purple)]/30"
+              : "bg-white/5 text-[var(--sns-text-muted)] border border-white/10"
             }">${a.activity}</span>
           </td>
         `;
@@ -482,7 +598,6 @@
         tbody.appendChild(tr);
       });
 
-      // stats
       document.getElementById("statAgents").textContent = String(agents.length);
       const totalVol = agents.reduce((s, a) => s + Math.abs(a.pnl30d) + a.balance * 0.2, 0);
       document.getElementById("statVol").textContent = fmtUSD(totalVol);
@@ -511,10 +626,7 @@
             data,
             borderWidth: 2,
             pointRadius: 3,
-            fill: true,
-            borderColor: "rgb(167,139,250)",
-            backgroundColor: "rgba(34,197,94,0.2)",
-            pointBackgroundColor: "rgb(34,197,94)"
+            fill: true
           }]
         },
         options: {
@@ -525,9 +637,9 @@
               min: 0,
               max: 100,
               ticks: { display: false },
-              grid: { color: "rgba(139,92,246,0.25)" },
-              angleLines: { color: "rgba(139,92,246,0.25)" },
-              pointLabels: { color: "rgba(226,232,240,0.85)", font: { size: 11 } }
+              grid: { color: "rgba(97,248,118,0.15)" },
+              angleLines: { color: "rgba(97,248,118,0.15)" },
+              pointLabels: { color: "rgba(241,245,249,0.85)", font: { size: 11 } }
             }
           }
         }
@@ -546,45 +658,39 @@
             data: curve,
             tension: 0.35,
             borderWidth: 2,
-            pointRadius: 0,
-            borderColor: "rgb(34,197,94)",
-            backgroundColor: "rgba(34,197,94,0.15)",
-            fill: true
+            pointRadius: 0
           }]
         },
         options: {
           responsive: true,
           plugins: { legend: { display: false } },
           scales: {
-            x: { grid: { display: false }, ticks: { color: "rgba(167,139,250,0.8)", maxTicksLimit: 6 } },
+            x: { grid: { display: false }, ticks: { color: "rgba(148,163,184,0.8)", maxTicksLimit: 6 } },
             y: {
-              grid: { color: "rgba(139,92,246,0.15)" },
-              ticks: { color: "rgba(167,139,250,0.8)", callback: (v) => fmtUSD(v) }
+              grid: { color: "rgba(97,248,118,0.1)" },
+              ticks: { color: "rgba(148,163,184,0.8)", callback: (v) => fmtUSD(v) }
             }
           }
         }
       });
     }
 
-    // -----------------------------
-    // Detail render (strategy + positions + trades)
-    // -----------------------------
     function renderPositions(positions) {
       const body = document.getElementById("positionsBody");
       body.innerHTML = "";
       if (!positions || positions.length === 0) {
-        body.innerHTML = `<tr><td class="py-2 text-slate-400" colspan="5">No open positions.</td></tr>`;
+        body.innerHTML = `<tr><td class="py-2 text-[var(--sns-text-muted)]" colspan="5">No open positions.</td></tr>`;
         return;
       }
 
       positions.forEach(p => {
         const tr = document.createElement("tr");
-        tr.className = "border-b border-violet-800/40";
+        tr.className = "border-b border-white/10";
         tr.innerHTML = `
-          <td class="py-2 pr-2 text-slate-200">${p.market}</td>
+          <td class="py-2 pr-2 text-[var(--sns-text)]">${p.market}</td>
           <td class="py-2 pr-2">${sidePill(p.side)}</td>
-          <td class="py-2 pr-2 text-slate-300">${p.avg.toFixed(2)}</td>
-          <td class="py-2 pr-2 text-slate-300">${fmtUSD(p.sizeUSD)}</td>
+          <td class="py-2 pr-2 text-[var(--sns-text-muted)]">${p.avg.toFixed(2)}</td>
+          <td class="py-2 pr-2 text-[var(--sns-text-muted)]">${fmtUSD(p.sizeUSD)}</td>
           <td class="py-2 pr-2 font-semibold ${pnlClass(p.uPnL)}">${fmtUSD(p.uPnL)}</td>
         `;
         body.appendChild(tr);
@@ -595,20 +701,20 @@
       const body = document.getElementById("tradesBody");
       body.innerHTML = "";
       if (!trades || trades.length === 0) {
-        body.innerHTML = `<tr><td class="py-2 text-slate-400" colspan="6">No trades yet.</td></tr>`;
+        body.innerHTML = `<tr><td class="py-2 text-[var(--sns-text-muted)]" colspan="6">No trades yet.</td></tr>`;
         return;
       }
 
       trades.forEach(t => {
         const tr = document.createElement("tr");
-        tr.className = "border-b border-violet-800/40";
+        tr.className = "border-b border-white/10";
         tr.innerHTML = `
-          <td class="py-2 pr-2 text-slate-300 whitespace-nowrap">${t.t}</td>
-          <td class="py-2 pr-2 text-slate-200">${t.market}</td>
-          <td class="py-2 pr-2 text-slate-300">${t.action}</td>
-          <td class="py-2 pr-2 text-slate-300">${Number(t.price).toFixed(2)}</td>
-          <td class="py-2 pr-2 text-slate-300">${fmtUSD(t.sizeUSD)}</td>
-          <td class="py-2 pr-2 font-semibold ${String(t.result).trim().startsWith("-") ? "text-rose-300" : "text-green-300"}">${t.result}</td>
+          <td class="py-2 pr-2 text-[var(--sns-text-muted)] whitespace-nowrap">${t.t}</td>
+          <td class="py-2 pr-2 text-[var(--sns-text)]">${t.market}</td>
+          <td class="py-2 pr-2 text-[var(--sns-text-muted)]">${t.action}</td>
+          <td class="py-2 pr-2 text-[var(--sns-text-muted)]">${Number(t.price).toFixed(2)}</td>
+          <td class="py-2 pr-2 text-[var(--sns-text-muted)]">${fmtUSD(t.sizeUSD)}</td>
+          <td class="py-2 pr-2 font-semibold ${String(t.result).trim().startsWith("-") ? "text-rose-300" : "text-sns-green"}">${t.result}</td>
         `;
         body.appendChild(tr);
       });
@@ -624,34 +730,26 @@
       document.getElementById("detailScore").textContent = String(a.score);
       document.getElementById("detailDays").textContent = a.activeDays;
 
-      // Strategy + risk pill
       document.getElementById("detailStrategy").textContent = a.strategy;
       const rp = document.getElementById("riskPill");
       rp.textContent = `Risk: ${a.risk}`;
       rp.className = `rounded-full border px-2.5 py-1 text-xs ${riskPill(a.risk)}`;
 
-      // avatar gradient
       const hue = (a.id.split("").reduce((s, c) => s + c.charCodeAt(0), 0) * 13) % 360;
       document.getElementById("avatar").style.background = `linear-gradient(135deg, hsl(${hue} 85% 55%), hsl(${(hue + 60) % 360} 85% 55%))`;
 
-      // status pill
       const pill = document.getElementById("statusPill");
       pill.classList.remove("hidden");
       pill.textContent = a.activity >= 85 ? "Very Active" : (a.activity >= 65 ? "Active" : "Normal");
 
-      // positions & trades
       renderPositions(a.positions);
       renderTrades(a.trades);
 
-      // charts
       buildRadar(a.ability);
       const curve = makeCurve(a.id, Math.max(4000, a.balance - 1200), 30);
       buildLine(curve);
     }
 
-    // -----------------------------
-    // Simulate live tick: update pnl/balance + also perturb positions/trades a bit
-    // -----------------------------
     function simulateTick() {
       agents.forEach(a => {
         const drift = (Math.random() - 0.5) * 200;
@@ -660,7 +758,6 @@
         a.winRate = Math.max(35, Math.min(75, Math.round(a.winRate + (Math.random() - 0.5) * 2)));
         a.activity = Math.max(30, Math.min(99, Math.round(a.activity + (Math.random() - 0.5) * 2)));
 
-        // small ability changes
         a.ability.Activity = a.activity;
         a.ability["Win Rate"] = a.winRate;
         a.ability.Profit = Math.max(0, Math.min(100, a.ability.Profit + Math.round((Math.random() - 0.5) * 3)));
@@ -671,7 +768,6 @@
           (a.ability.Profit + a.ability.Edge + a.ability.Drawdown + a.ability["Win Rate"] + a.ability.Activity) / 5
         )));
 
-        // update unrealized pnl for positions
         if (a.positions?.length) {
           a.positions.forEach(p => {
             const bump = (Math.random() - 0.5) * 30;
@@ -681,13 +777,12 @@
       });
 
       renderTable();
+      buildHeroChart();
+      renderHeroAgentCards();
       const sel = agents.find(x => x.id === selectedId) || agents[0];
       renderDetail(sel);
     }
 
-    // -----------------------------
-    // Wiring
-    // -----------------------------
     document.getElementById("btnSim").addEventListener("click", simulateTick);
     search.addEventListener("input", renderTable);
     sortBy.addEventListener("change", renderTable);
@@ -696,7 +791,8 @@
       alert("Demo only: later wire this to Phantom/Solflare wallet adapter.");
     });
 
-    // init
+    buildHeroChart();
+    renderHeroAgentCards();
     renderTable();
     renderDetail(agents[0]);
   </script>
