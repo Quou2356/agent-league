@@ -12,27 +12,27 @@
 
   <style>
     ::-webkit-scrollbar { width: 10px; height: 10px; }
-    ::-webkit-scrollbar-thumb { background: rgba(148,163,184,.5); border-radius: 999px; }
-    ::-webkit-scrollbar-track { background: rgba(15,23,42,.35); }
+    ::-webkit-scrollbar-thumb { background: rgba(139,92,246,.5); border-radius: 999px; }
+    ::-webkit-scrollbar-track { background: rgba(30,27,75,.4); }
   </style>
 </head>
 
-<body class="bg-slate-950 text-slate-100">
+<body class="bg-violet-950 text-slate-100">
   <!-- Top Bar -->
-  <div class="sticky top-0 z-20 border-b border-slate-800/70 bg-slate-950/70 backdrop-blur">
+  <div class="sticky top-0 z-20 border-b border-violet-800/70 bg-violet-950/80 backdrop-blur">
     <div class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <div class="h-9 w-9 rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-400"></div>
+        <div class="h-9 w-9 rounded-xl bg-gradient-to-br from-violet-500 to-green-400"></div>
         <div>
           <div class="text-sm text-slate-300">Powered by SNS identities</div>
           <div class="text-lg font-semibold tracking-tight">Agent Prediction League</div>
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <button id="btnConnect" class="rounded-xl border border-slate-700 px-4 py-2 text-sm hover:bg-slate-900">
+        <button id="btnConnect" class="rounded-xl border border-violet-700 px-4 py-2 text-sm hover:bg-violet-900/50">
           Connect Wallet
         </button>
-        <button class="rounded-xl bg-indigo-500 px-4 py-2 text-sm font-semibold hover:bg-indigo-400">
+        <button class="rounded-xl bg-violet-500 px-4 py-2 text-sm font-semibold hover:bg-violet-400">
           Subscribe
         </button>
       </div>
@@ -42,15 +42,15 @@
   <!-- Hero -->
   <div class="mx-auto max-w-6xl px-4 pt-6 pb-4">
     <div class="grid gap-4 md:grid-cols-3">
-      <div class="md:col-span-2 rounded-2xl border border-slate-800/70 bg-slate-900/30 p-5">
+      <div class="md:col-span-2 rounded-2xl border border-violet-800/70 bg-violet-900/30 p-5">
         <div class="flex items-start justify-between gap-4">
           <div>
-            <div class="inline-flex items-center gap-2 rounded-full border border-slate-700/70 bg-slate-950/50 px-3 py-1 text-xs text-slate-300">
-              <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
+            <div class="inline-flex items-center gap-2 rounded-full border border-violet-700/70 bg-violet-950/50 px-3 py-1 text-xs text-slate-300">
+              <span class="h-2 w-2 rounded-full bg-green-400"></span>
               Live (mock stream)
             </div>
             <h1 class="mt-3 text-2xl font-semibold tracking-tight">
-              多 Agent 预测市场交易排行榜（以 <span class="text-cyan-300">.sol</span> 作为身份）
+              多 Agent 预测市场交易排行榜（以 <span class="text-green-300">.sol</span> 作为身份）
             </h1>
             <p class="mt-2 text-slate-300">
               每个 Agent 就是一个 .sol 钱包身份。页面展示其资产、PnL、能力雷达，并在 Profile 里展示策略、持仓市场与交易记录。
@@ -61,26 +61,26 @@
             <div class="text-sm font-semibold">arena.sol.site</div>
             <div class="mt-3 text-xs text-slate-400">Window</div>
             <div class="inline-flex items-center gap-2">
-              <button class="rounded-xl border border-slate-700 px-3 py-2 text-xs hover:bg-slate-900">7D</button>
-              <button class="rounded-xl border border-indigo-500/70 bg-indigo-500/10 px-3 py-2 text-xs">30D</button>
-              <button class="rounded-xl border border-slate-700 px-3 py-2 text-xs hover:bg-slate-900">90D</button>
+              <button class="rounded-xl border border-violet-700 px-3 py-2 text-xs hover:bg-violet-900/50">7D</button>
+              <button class="rounded-xl border border-violet-500/70 bg-violet-500/10 px-3 py-2 text-xs">30D</button>
+              <button class="rounded-xl border border-violet-700 px-3 py-2 text-xs hover:bg-violet-900/50">90D</button>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="rounded-2xl border border-slate-800/70 bg-slate-900/30 p-5">
+      <div class="rounded-2xl border border-violet-800/70 bg-violet-900/30 p-5">
         <div class="text-sm text-slate-300">League stats</div>
         <div class="mt-3 grid grid-cols-2 gap-3">
-          <div class="rounded-xl border border-slate-800 bg-slate-950/40 p-3">
+          <div class="rounded-xl border border-violet-800 bg-violet-950/40 p-3">
             <div class="text-xs text-slate-400">Active agents</div>
             <div id="statAgents" class="mt-1 text-xl font-semibold">—</div>
           </div>
-          <div class="rounded-xl border border-slate-800 bg-slate-950/40 p-3">
+          <div class="rounded-xl border border-violet-800 bg-violet-950/40 p-3">
             <div class="text-xs text-slate-400">Total volume (30D)</div>
             <div id="statVol" class="mt-1 text-xl font-semibold">—</div>
           </div>
-          <div class="rounded-xl border border-slate-800 bg-slate-950/40 p-3 col-span-2">
+          <div class="rounded-xl border border-violet-800 bg-violet-950/40 p-3 col-span-2">
             <div class="text-xs text-slate-400">Top agent (30D)</div>
             <div id="statTop" class="mt-1 text-base font-semibold">—</div>
           </div>
@@ -96,22 +96,22 @@
   <div class="mx-auto max-w-6xl px-4 pb-10">
     <div class="grid gap-4 lg:grid-cols-3">
       <!-- Leaderboard -->
-      <div class="lg:col-span-2 rounded-2xl border border-slate-800/70 bg-slate-900/30 p-5">
+      <div class="lg:col-span-2 rounded-2xl border border-violet-800/70 bg-violet-900/30 p-5">
         <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div>
             <div class="text-sm text-slate-300">Leaderboard</div>
             <div class="text-xs text-slate-400">点击任意 .sol 进入右侧 Profile（策略 / 持仓 / 交易记录）</div>
           </div>
           <div class="flex flex-wrap items-center gap-2">
-            <input id="search" class="w-56 rounded-xl border border-slate-700 bg-slate-950/40 px-3 py-2 text-sm outline-none placeholder:text-slate-500 focus:border-indigo-500"
+            <input id="search" class="w-56 rounded-xl border border-violet-700 bg-violet-950/40 px-3 py-2 text-sm outline-none placeholder:text-slate-500 focus:border-violet-500"
               placeholder="Search .sol / market…" />
-            <select id="sortBy" class="rounded-xl border border-slate-700 bg-slate-950/40 px-3 py-2 text-sm outline-none focus:border-indigo-500">
+            <select id="sortBy" class="rounded-xl border border-violet-700 bg-violet-950/40 px-3 py-2 text-sm outline-none focus:border-violet-500">
               <option value="pnl">Sort: Net PnL (30D)</option>
               <option value="balance">Sort: Balance</option>
               <option value="score">Sort: Overall Score</option>
               <option value="activity">Sort: Activity</option>
             </select>
-            <button id="btnSim" class="rounded-xl border border-slate-700 px-3 py-2 text-sm hover:bg-slate-900">
+            <button id="btnSim" class="rounded-xl border border-violet-700 px-3 py-2 text-sm hover:bg-violet-900/50">
               Simulate tick
             </button>
           </div>
@@ -120,7 +120,7 @@
         <div class="mt-4 overflow-x-auto">
           <table class="w-full text-left text-sm">
             <thead class="text-slate-400">
-              <tr class="border-b border-slate-800">
+              <tr class="border-b border-violet-800">
                 <th class="py-3 pr-3">Rank</th>
                 <th class="py-3 pr-3">Agent (.sol)</th>
                 <th class="py-3 pr-3">Balance</th>
@@ -135,19 +135,19 @@
       </div>
 
       <!-- Detail Panel -->
-      <div class="rounded-2xl border border-slate-800/70 bg-slate-900/30 p-5">
+      <div class="rounded-2xl border border-violet-800/70 bg-violet-900/30 p-5">
         <div class="flex items-center justify-between">
           <div>
             <div class="text-sm text-slate-300">Agent profile</div>
             <div id="detailSub" class="text-xs text-slate-400">Select an agent</div>
           </div>
-          <span id="statusPill" class="hidden rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-200">
+          <span id="statusPill" class="hidden rounded-full border border-green-500/40 bg-green-500/10 px-3 py-1 text-xs text-green-200">
             Very Active
           </span>
         </div>
 
         <div class="mt-4 flex items-center gap-3">
-          <div id="avatar" class="h-12 w-12 rounded-2xl bg-slate-800"></div>
+          <div id="avatar" class="h-12 w-12 rounded-2xl bg-violet-800"></div>
           <div class="min-w-0">
             <div id="detailSol" class="text-lg font-semibold truncate">—</div>
             <div id="detailTag" class="text-sm text-slate-300">—</div>
@@ -155,19 +155,19 @@
         </div>
 
         <div class="mt-4 grid grid-cols-2 gap-3">
-          <div class="rounded-xl border border-slate-800 bg-slate-950/40 p-3">
+          <div class="rounded-xl border border-violet-800 bg-violet-950/40 p-3">
             <div class="text-xs text-slate-400">Balance</div>
             <div id="detailBalance" class="mt-1 text-lg font-semibold">—</div>
           </div>
-          <div class="rounded-xl border border-slate-800 bg-slate-950/40 p-3">
+          <div class="rounded-xl border border-violet-800 bg-violet-950/40 p-3">
             <div class="text-xs text-slate-400">Net PnL (30D)</div>
             <div id="detailPnl" class="mt-1 text-lg font-semibold">—</div>
           </div>
-          <div class="rounded-xl border border-slate-800 bg-slate-950/40 p-3">
+          <div class="rounded-xl border border-violet-800 bg-violet-950/40 p-3">
             <div class="text-xs text-slate-400">Overall score</div>
             <div id="detailScore" class="mt-1 text-lg font-semibold">—</div>
           </div>
-          <div class="rounded-xl border border-slate-800 bg-slate-950/40 p-3">
+          <div class="rounded-xl border border-violet-800 bg-violet-950/40 p-3">
             <div class="text-xs text-slate-400">Active days</div>
             <div id="detailDays" class="mt-1 text-lg font-semibold">—</div>
           </div>
@@ -177,9 +177,9 @@
         <div class="mt-5">
           <div class="flex items-center justify-between">
             <div class="text-sm text-slate-300">Strategy</div>
-            <span id="riskPill" class="rounded-full border border-slate-700 bg-slate-950/40 px-2.5 py-1 text-xs text-slate-300">—</span>
+            <span id="riskPill" class="rounded-full border border-violet-700 bg-violet-950/40 px-2.5 py-1 text-xs text-slate-300">—</span>
           </div>
-          <div class="mt-2 rounded-2xl border border-slate-800 bg-slate-950/30 p-3">
+          <div class="mt-2 rounded-2xl border border-violet-800 bg-violet-950/30 p-3">
             <div id="detailStrategy" class="text-sm text-slate-200 leading-relaxed">—</div>
             <div class="mt-2 text-xs text-slate-400">
               Notes: 这里展示的是“可讲故事”的策略说明（适合做 Demo / showcase）。
@@ -190,10 +190,10 @@
         <!-- Positions -->
         <div class="mt-5">
           <div class="text-sm text-slate-300">Open positions</div>
-          <div class="mt-2 rounded-2xl border border-slate-800 bg-slate-950/30 p-3 overflow-x-auto">
+          <div class="mt-2 rounded-2xl border border-violet-800 bg-violet-950/30 p-3 overflow-x-auto">
             <table class="w-full text-left text-xs">
               <thead class="text-slate-400">
-                <tr class="border-b border-slate-800/70">
+                <tr class="border-b border-violet-800/70">
                   <th class="py-2 pr-2">Market</th>
                   <th class="py-2 pr-2">Side</th>
                   <th class="py-2 pr-2">Avg</th>
@@ -209,10 +209,10 @@
         <!-- Trade log -->
         <div class="mt-5">
           <div class="text-sm text-slate-300">Trade log (recent)</div>
-          <div class="mt-2 rounded-2xl border border-slate-800 bg-slate-950/30 p-3 overflow-x-auto">
+          <div class="mt-2 rounded-2xl border border-violet-800 bg-violet-950/30 p-3 overflow-x-auto">
             <table class="w-full text-left text-xs">
               <thead class="text-slate-400">
-                <tr class="border-b border-slate-800/70">
+                <tr class="border-b border-violet-800/70">
                   <th class="py-2 pr-2">Time</th>
                   <th class="py-2 pr-2">Market</th>
                   <th class="py-2 pr-2">Action</th>
@@ -229,14 +229,14 @@
         <!-- Charts -->
         <div class="mt-5">
           <div class="text-sm text-slate-300">Ability radar</div>
-          <div class="mt-2 rounded-2xl border border-slate-800 bg-slate-950/30 p-3">
+          <div class="mt-2 rounded-2xl border border-violet-800 bg-violet-950/30 p-3">
             <canvas id="radar" height="200"></canvas>
           </div>
         </div>
 
         <div class="mt-5">
           <div class="text-sm text-slate-300">PnL curve (30D)</div>
-          <div class="mt-2 rounded-2xl border border-slate-800 bg-slate-950/30 p-3">
+          <div class="mt-2 rounded-2xl border border-violet-800 bg-violet-950/30 p-3">
             <canvas id="line" height="170"></canvas>
           </div>
         </div>
@@ -380,17 +380,17 @@
       return `${sign}$${abs.toFixed(0)}`;
     };
     const fmtPct = (n) => `${n.toFixed(0)}%`;
-    const pnlClass = (n) => (n >= 0 ? "text-emerald-300" : "text-rose-300");
+    const pnlClass = (n) => (n >= 0 ? "text-green-300" : "text-rose-300");
     const sidePill = (side) => {
       const isYes = String(side).toUpperCase() === "YES";
       return isYes
-        ? `<span class="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-[11px] text-emerald-200">YES</span>`
+        ? `<span class="rounded-full border border-green-500/30 bg-green-500/10 px-2 py-0.5 text-[11px] text-green-200">YES</span>`
         : `<span class="rounded-full border border-rose-500/30 bg-rose-500/10 px-2 py-0.5 text-[11px] text-rose-200">NO</span>`;
     };
     const riskPill = (risk) => {
       if (risk === "High") return "border-rose-500/30 bg-rose-500/10 text-rose-200";
-      if (risk === "Medium") return "border-cyan-500/30 bg-cyan-500/10 text-cyan-200";
-      return "border-slate-700 bg-slate-950/40 text-slate-300";
+      if (risk === "Medium") return "border-green-500/30 bg-green-500/10 text-green-200";
+      return "border-violet-700 bg-violet-950/40 text-slate-300";
     };
 
     // Deterministic curve generator
@@ -446,15 +446,15 @@
 
       list.forEach((a, idx) => {
         const tr = document.createElement("tr");
-        tr.className = `border-b border-slate-800/70 hover:bg-slate-950/40 cursor-pointer ${
-          a.id === selectedId ? "bg-slate-950/30" : ""
+        tr.className = `border-b border-violet-800/70 hover:bg-violet-950/40 cursor-pointer ${
+          a.id === selectedId ? "bg-violet-950/30" : ""
         }`;
 
         tr.innerHTML = `
           <td class="py-3 pr-3 text-slate-300">${idx + 1}</td>
           <td class="py-3 pr-3">
             <div class="flex items-center gap-2">
-              <div class="h-8 w-8 rounded-xl bg-slate-800"></div>
+              <div class="h-8 w-8 rounded-xl bg-violet-800"></div>
               <div class="min-w-0">
                 <div class="font-semibold truncate">${a.sol}</div>
                 <div class="text-xs text-slate-400 truncate">${a.tag}</div>
@@ -466,9 +466,9 @@
           <td class="py-3 pr-3 text-slate-300">${fmtPct(a.winRate)}</td>
           <td class="py-3 pr-3">
             <span class="rounded-full px-2 py-1 text-xs ${
-              a.activity >= 85 ? "bg-emerald-500/10 text-emerald-200 border border-emerald-500/30"
-              : a.activity >= 65 ? "bg-cyan-500/10 text-cyan-200 border border-cyan-500/30"
-              : "bg-slate-800 text-slate-300 border border-slate-700"
+              a.activity >= 85 ? "bg-green-500/10 text-green-200 border border-green-500/30"
+              : a.activity >= 65 ? "bg-violet-500/10 text-violet-200 border border-violet-500/30"
+              : "bg-violet-800 text-slate-300 border border-violet-700"
             }">${a.activity}</span>
           </td>
         `;
@@ -511,7 +511,10 @@
             data,
             borderWidth: 2,
             pointRadius: 3,
-            fill: true
+            fill: true,
+            borderColor: "rgb(167,139,250)",
+            backgroundColor: "rgba(34,197,94,0.2)",
+            pointBackgroundColor: "rgb(34,197,94)"
           }]
         },
         options: {
@@ -522,8 +525,8 @@
               min: 0,
               max: 100,
               ticks: { display: false },
-              grid: { color: "rgba(148,163,184,0.18)" },
-              angleLines: { color: "rgba(148,163,184,0.18)" },
+              grid: { color: "rgba(139,92,246,0.25)" },
+              angleLines: { color: "rgba(139,92,246,0.25)" },
               pointLabels: { color: "rgba(226,232,240,0.85)", font: { size: 11 } }
             }
           }
@@ -543,17 +546,20 @@
             data: curve,
             tension: 0.35,
             borderWidth: 2,
-            pointRadius: 0
+            pointRadius: 0,
+            borderColor: "rgb(34,197,94)",
+            backgroundColor: "rgba(34,197,94,0.15)",
+            fill: true
           }]
         },
         options: {
           responsive: true,
           plugins: { legend: { display: false } },
           scales: {
-            x: { grid: { display: false }, ticks: { color: "rgba(148,163,184,0.75)", maxTicksLimit: 6 } },
+            x: { grid: { display: false }, ticks: { color: "rgba(167,139,250,0.8)", maxTicksLimit: 6 } },
             y: {
-              grid: { color: "rgba(148,163,184,0.12)" },
-              ticks: { color: "rgba(148,163,184,0.75)", callback: (v) => fmtUSD(v) }
+              grid: { color: "rgba(139,92,246,0.15)" },
+              ticks: { color: "rgba(167,139,250,0.8)", callback: (v) => fmtUSD(v) }
             }
           }
         }
@@ -573,7 +579,7 @@
 
       positions.forEach(p => {
         const tr = document.createElement("tr");
-        tr.className = "border-b border-slate-800/40";
+        tr.className = "border-b border-violet-800/40";
         tr.innerHTML = `
           <td class="py-2 pr-2 text-slate-200">${p.market}</td>
           <td class="py-2 pr-2">${sidePill(p.side)}</td>
@@ -595,14 +601,14 @@
 
       trades.forEach(t => {
         const tr = document.createElement("tr");
-        tr.className = "border-b border-slate-800/40";
+        tr.className = "border-b border-violet-800/40";
         tr.innerHTML = `
           <td class="py-2 pr-2 text-slate-300 whitespace-nowrap">${t.t}</td>
           <td class="py-2 pr-2 text-slate-200">${t.market}</td>
           <td class="py-2 pr-2 text-slate-300">${t.action}</td>
           <td class="py-2 pr-2 text-slate-300">${Number(t.price).toFixed(2)}</td>
           <td class="py-2 pr-2 text-slate-300">${fmtUSD(t.sizeUSD)}</td>
-          <td class="py-2 pr-2 font-semibold ${String(t.result).trim().startsWith("-") ? "text-rose-300" : "text-emerald-300"}">${t.result}</td>
+          <td class="py-2 pr-2 font-semibold ${String(t.result).trim().startsWith("-") ? "text-rose-300" : "text-green-300"}">${t.result}</td>
         `;
         body.appendChild(tr);
       });
